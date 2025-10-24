@@ -13,4 +13,6 @@ It's an engine built around another engine. The engine in question being [PyGame
 ## Dependencies
 
 | Module Name In Script | Python Install Package Script | Website/Repo Related To Dependency |
-| :- | 
+| :- | :-: | -: |
+| `pygame` | `pip install pygame-ce` | https://pypi.org/project/pygame-ce/ |
+| `yaml` | `pip install pyyaml` | https://pypi.org/project/PyYAML/ |

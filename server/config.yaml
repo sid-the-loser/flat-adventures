@@ -1,0 +1,6 @@
+server-details:
+  ip: "localhost"
+  port: 6969
+
+config-file-details:
+  version: "1.0"
