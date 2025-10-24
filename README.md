@@ -16,4 +16,4 @@ It's an engine built around another engine. The engine in question being [PyGame
 | :-: | :-: | :-: | :-: |
 | `pygame` | `pip install pygame-ce` | https://pypi.org/project/pygame-ce/ | No |
 | `yaml` | `pip install pyyaml` | https://pypi.org/project/PyYAML/ | No |
-| `pyinstaller` | `pip install pyinstaller | https://pyinstaller.org/en/stable/ | Yes (only needed to build not run) |
+| `pyinstaller` | `pip install pyinstaller` | https://pypi.org/project/pyinstaller/ | Yes (only needed to build not run) |
