@@ -12,7 +12,8 @@ It's an engine built around another engine. The engine in question being [PyGame
 
 ## Dependencies
 
-| Module Name In Script | Python Install Package Script | Website/Repo Related To Dependency |
-| :- | :-: | -: |
-| `pygame` | `pip install pygame-ce` | https://pypi.org/project/pygame-ce/ |
-| `yaml` | `pip install pyyaml` | https://pypi.org/project/PyYAML/ |
+| Module Name In Script | Python Install Package Script | Website/Repo Related To Dependency | Is Optional? |
+| :-: | :-: | :-: | :-: |
+| `pygame` | `pip install pygame-ce` | https://pypi.org/project/pygame-ce/ | No |
+| `yaml` | `pip install pyyaml` | https://pypi.org/project/PyYAML/ | No |
+| `pyinstaller` | `pip install pyinstaller | https://pyinstaller.org/en/stable/ | Yes (only needed to build not run) |

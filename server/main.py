@@ -18,4 +18,4 @@ default_config = {
 config = deepcopy(default_config)
 
 if not os.path.isfile("./config.yaml"):
-    pass
+    pass # TODO: work on config patching
