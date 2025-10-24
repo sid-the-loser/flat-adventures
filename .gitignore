@@ -1,2 +1,5 @@
 # (added) MacOS system files
 .DS_Store
+
+# (added) Python virtual environment
+.venv/
