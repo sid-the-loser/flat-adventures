@@ -1,21 +1,11 @@
-import socket
-import yaml
-import os
-from copy import deepcopy
+# This file will only be containing the interface code that the server owner
+# be interacting with.
 
-# Dealing with configuration files
+import threading
 
-default_config = {
-    "config-file-details": {
-        "version": "1.0"
-    },
-    "server-details": {
-        "ip": "localhost",
-        "port": 6969
-    }
-}
+# I split the code into multiple different files, so theres a chance you might
+# find some random modules with no extra functionality lying around. They're all
+# blocks of code. They serve no function but to run and die.
 
-config = deepcopy(default_config)
-
-if not os.path.isfile("./config.yaml"):
-    pass # TODO: work on config patching
+import config_loader # loads the server configuration and can be used later to
+                     # get configuration information.
