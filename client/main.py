@@ -1,3 +1,3 @@
 import hatred
 
-print("Hello world!")
+print("Lmao")
