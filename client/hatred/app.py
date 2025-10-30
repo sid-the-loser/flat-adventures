@@ -5,6 +5,7 @@ import scene
 
 # In-codebase dependencies
 import game_details
+import _signal
 
 class App:
     def __init__(self) -> None:
@@ -66,10 +67,6 @@ class App:
                 _s.active = False
             else:
                 _s.active = True
-
-# Signals
-
-
 
 # Errors
 
