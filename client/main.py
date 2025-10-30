@@ -1,3 +1,2 @@
 import hatred
 
-print("Lmao")

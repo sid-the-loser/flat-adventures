@@ -25,8 +25,14 @@ class App:
 
         self.app_running = True
 
+    def run(self):
+        while self.app_running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.quit_app()
+
     def quit_app(self):
-        pass
+        self.app_running = False
 
     def add_scene(self, scene_name: str) -> None:
         potential_index: int = self.find_scene_by_name(scene_name)
