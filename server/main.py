@@ -1,1 +1,0 @@
-# TODO: Re-think the server structure

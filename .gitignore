@@ -1,6 +1,10 @@
 # (added) MacOS system files
 .DS_Store
 
+# (added) testing files
+
+/testing/
+
 # (note) The rest of the gitignore file is the standard Python.gitignore template
 
 # Byte-compiled / optimized / DLL files
