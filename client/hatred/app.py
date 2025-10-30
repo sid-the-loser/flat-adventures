@@ -1,24 +1,22 @@
-# External dependencies
 import pygame
 import sys
 import scene
 
-# In-codebase dependencies
-import game_details
+import hatred.game_details
 import _signal
 
 class App:
     def __init__(self) -> None:
         self.window: pygame.Surface = pygame.display.set_mode(
-            size=game_details.WINDOW_SIZE, 
-            flags=game_details.WINDOW_FLAGS,
-            display=game_details.WINDOW_DEFAULT_DISPLAY,
-            vsync=game_details.WINDOW_VSYNC
+            size=hatred.game_details.WINDOW_SIZE, 
+            flags=hatred.game_details.WINDOW_FLAGS,
+            display=hatred.game_details.WINDOW_DEFAULT_DISPLAY,
+            vsync=hatred.game_details.WINDOW_VSYNC
             )
-        pygame.display.set_caption(game_details.GAME_VERSION)
+        pygame.display.set_caption(hatred.game_details.GAME_VERSION)
 
-        # TODO: Value not populated in game_details
-        # window_icon_surface = pygame.image.load(game_details.WINDOW_ICON)
+        # TODO: Value not populated in hatred.game_details
+        # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
 
         self.scene_list: list[scene.Scene] = []
@@ -31,6 +29,11 @@ class App:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.quit_app()
+
+
+            pygame.display.flip()
+
+        pygame.quit()
 
     def quit_app(self):
         self.app_running = False
