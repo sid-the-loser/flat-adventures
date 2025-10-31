@@ -3,7 +3,7 @@ import sys
 
 import hatred.scene
 import hatred.game_details
-import hatred.signals
+import hatred.signal
 
 class App:
     def __init__(self) -> None:
@@ -22,9 +22,11 @@ class App:
         self.scene_list: list[hatred.scene.Scene] = []
         self.current_scene: hatred.scene.Scene | None = None
 
-        self.FILL_COLOR = (0, 0, 0)
+        self.FILL_COLOR: tuple = (0, 0, 0)
 
-        self.app_running = True
+        self.signal_app_closing: hatred.signal.Publisher = hatred.signal.Publisher()
+
+        self.app_running: bool = True
 
     def run(self):
         while self.app_running:
@@ -39,6 +41,7 @@ class App:
         pygame.quit()
 
     def quit_app(self):
+        self.signal_app_closing.notify()
         self.app_running = False
 
     def add_scene(self, scene_name: str) -> None:
