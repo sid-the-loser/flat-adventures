@@ -22,6 +22,8 @@ class App:
         self.scene_list: list[hatred.scene.Scene] = []
         self.current_scene: hatred.scene.Scene | None = None
 
+        self.FILL_COLOR = (0, 0, 0)
+
         self.app_running = True
 
     def run(self):
@@ -30,6 +32,7 @@ class App:
                 if event.type == pygame.QUIT:
                     self.quit_app()
 
+            self.window.fill(self.FILL_COLOR)
 
             pygame.display.flip()
 
