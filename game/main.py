@@ -1,3 +1,5 @@
-import hatred
+import os
 
-print(hatred.BASE_PATH)
+import hatred.game_details
+
+BASE_PATH = os.path.abspath(__file__)
