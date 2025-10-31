@@ -19,8 +19,8 @@ class App:
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
 
-        self.scene_list: list[hatred.scene.Scene] = []
-        self.current_scene: hatred.scene.Scene | None = None
+        self.scene_list: list[hatred.scene.Scene] = [hatred.scene.Scene("blank")]
+        self.current_scene: hatred.scene.Scene = self.scene_list[0]
 
         self.FILL_COLOR: tuple = (0, 0, 0)
 
@@ -30,7 +30,8 @@ class App:
 
     def run(self):
         while self.app_running:
-            for event in pygame.event.get():
+            input_events = pygame.event.get()
+            for event in input_events:
                 if event.type == pygame.QUIT:
                     self.quit_app()
 
@@ -76,6 +77,7 @@ class App:
                 _s.active = False
             else:
                 _s.active = True
+                self.current_scene = _s
 
 # Errors
 
