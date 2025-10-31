@@ -1,3 +1,5 @@
+import pygame
+
 import hatred.math_plus
 
 class GameObject:
@@ -11,5 +13,5 @@ class GameObject:
     def update(self):
         pass
 
-    def draw(self):
+    def draw(self, surface: pygame.Surface):
         pass

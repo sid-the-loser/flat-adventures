@@ -19,5 +19,5 @@ class Scene:
     def update(self) -> None:
         pass
 
-    def draw(self) -> None:
+    def draw(self, surface: pygame.Surface) -> None:
         pass

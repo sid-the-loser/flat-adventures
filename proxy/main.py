@@ -1,5 +1,11 @@
-"""
-This proxy script will keep track of users servers.
+import socket
+import yaml
+import os
 
-DEV NOTE: SRV can hold the port while A can hold the ip address info
-"""
+default_config = {
+    "ip": "127.0.0.1",
+    "port": 65432
+}
+
+CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+                           "config.yaml")
