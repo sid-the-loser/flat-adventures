@@ -2,7 +2,7 @@ import pygame
 import os
 
 GAME_NAME: str = "flat adventures"
-GAME_VERSION: str = "ea1.0.0"
+GAME_VERSION: str = "ea0.0.1"
 
 WINDOW_SIZE: tuple = (600, 600)
 WINDOW_FLAGS: int = pygame.RESIZABLE | pygame.SCALED

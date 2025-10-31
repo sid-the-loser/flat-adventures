@@ -1,9 +1,9 @@
 import pygame
 import sys
-import scene
 
+import hatred.scene
 import hatred.game_details
-import _signal
+import hatred.signals
 
 class App:
     def __init__(self) -> None:
@@ -13,14 +13,14 @@ class App:
             display=hatred.game_details.WINDOW_DEFAULT_DISPLAY,
             vsync=hatred.game_details.WINDOW_VSYNC
             )
-        pygame.display.set_caption(hatred.game_details.GAME_VERSION)
+        pygame.display.set_caption(hatred.game_details.WINDOW_TITLE)
 
         # TODO: Value not populated in hatred.game_details
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
 
-        self.scene_list: list[scene.Scene] = []
-        self.current_scene: scene.Scene | None = None
+        self.scene_list: list[hatred.scene.Scene] = []
+        self.current_scene: hatred.scene.Scene | None = None
 
         self.app_running = True
 
@@ -44,7 +44,7 @@ class App:
             raise SceneNameAlreadyInUse(
                 f"\"{scene_name}\" is already in use by another scene at scene_list[{potential_index}]")
 
-        self.scene_list.append(scene.Scene(scene_name))
+        self.scene_list.append(hatred.scene.Scene(scene_name))
 
     def remove_scene(self, scene_name: str) -> None:
         for i in range(len(self.scene_list)):
