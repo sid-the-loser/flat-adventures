@@ -5,6 +5,11 @@
 
 /testing/
 
+# (added) no configuration or users files
+
+config.yaml
+users.yaml
+
 # (note) The rest of the gitignore file is the standard Python.gitignore template
 
 # Byte-compiled / optimized / DLL files
