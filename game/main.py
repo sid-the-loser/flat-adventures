@@ -8,8 +8,8 @@ BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 myApp = hatred.app.App()
 
-test_scene = hatred.scene.Scene("gay ass", myApp)
+test_scene = hatred.scene.Scene("test", myApp)
 
-myApp.switch_to_scene("gay ass")
+myApp.switch_to_scene("test")
 
 myApp.run()
