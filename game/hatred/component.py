@@ -1,14 +1,9 @@
 import pygame
 
-import hatred.math_plus
-import hatred.component
-
-class GameObject:
+class Component:
     def __init__(self, name) -> None:
         self.name: str = name
-        self.position = hatred.math_plus.Vector2()
-        self.components: list[hatred.component.Component] = []
-
+    
     def init(self):
         pass
 
