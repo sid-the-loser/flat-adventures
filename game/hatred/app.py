@@ -19,10 +19,14 @@ class App:
         # pygame.display.set_icon(window_icon_surface)
 
         self.scene_list: list[hatred.scene.Scene] = [
-            hatred.scene.Scene("blank", self)]
+            hatred.scene.Scene("blank", self)
+        ]
         self.current_scene: hatred.scene.Scene = self.scene_list[0]
 
         self.clock = pygame.time.Clock()
+        # this could lead to glitches, but this only persists the first frame of
+        #  the app launching
+        self.delta_time = 1
 
         self.events: list[pygame.Event] = pygame.event.get()
 
@@ -32,7 +36,7 @@ class App:
 
     def run(self):
         while self.app_running:
-            delta: float = self.clock.tick(
+            self.delta_time: float = self.clock.tick(
                 hatred.game_details.WINDOW_FPS) / 1000
 
             self.events = pygame.event.get()

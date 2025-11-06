@@ -11,4 +11,4 @@ myApp.remove_scene("blank")
 
 print("Done")
 
-#myApp.run()
+myApp.run()
