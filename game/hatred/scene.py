@@ -1,10 +1,9 @@
 import pygame
 
 import hatred.game_object
-import hatred.app
 
 class Scene:
-    def __init__(self, name: str, app: hatred.app.App) -> None:
+    def __init__(self, name: str, app) -> None:
         self.active = False
         self.name = name
         self.app = app
