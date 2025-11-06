@@ -19,7 +19,8 @@ class App:
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
 
-        self.scene_list: list[hatred.scene.Scene] = [hatred.scene.Scene("blank")]
+        self.scene_list: list[hatred.scene.Scene] = [
+            hatred.scene.Scene("blank")]
         self.current_scene: hatred.scene.Scene = self.scene_list[0]
 
         self.clock = pygame.time.Clock()
