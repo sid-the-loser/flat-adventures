@@ -14,6 +14,8 @@ class Scene:
         # when it comes to rendering
         self.camera = hatred.game_object.GameObject("camera", self)
 
+        self.app.add_scene(self)
+
     def append_game_object(self, obj: hatred.game_object.GameObject):
         self.game_objects.append(obj)
 

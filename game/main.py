@@ -2,13 +2,14 @@ import os
 
 import hatred
 import hatred.app
+import hatred.scene
 
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 myApp = hatred.app.App()
 
-myApp.remove_scene("blank")
+test_scene = hatred.scene.Scene("gay ass", myApp)
 
-print("Done")
+myApp.switch_to_scene("gay ass")
 
 myApp.run()

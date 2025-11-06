@@ -18,9 +18,10 @@ class App:
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
 
-        self.scene_list: list[hatred.scene.Scene] = [
-            hatred.scene.Scene("blank", self)
-        ]
+        self.scene_list: list[hatred.scene.Scene] = []
+        
+        hatred.scene.Scene("blank", self) # scene will load into a blank screen
+
         self.current_scene: hatred.scene.Scene = self.scene_list[0]
 
         self.clock = pygame.time.Clock()
@@ -57,13 +58,13 @@ class App:
     def quit_app(self):
         self.app_running = False
 
-    def add_scene(self, scene_name: str) -> None:
-        potential_index: int = self.find_scene_by_name(scene_name)
+    def add_scene(self, scene: hatred.scene.Scene) -> None:
+        potential_index: int = self.find_scene_by_name(scene.name)
         if potential_index >= 0:
             raise SceneNameAlreadyInUse(
-                f"\"{scene_name}\" is already in use by another scene at scene_list[{potential_index}]")
+                f"\"{scene.name}\" is already in use by another scene at scene_list[{potential_index}]")
 
-        self.scene_list.append(hatred.scene.Scene(scene_name, self))
+        self.scene_list.append(scene)
 
     def remove_scene(self, scene_name: str) -> None:
         for i in range(len(self.scene_list)):

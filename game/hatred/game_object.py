@@ -10,6 +10,8 @@ class GameObject:
         self.position = hatred.math_plus.Vector2()
         self.components: list[hatred.component.Component] = []
 
+        self.scene.append_game_object(self)
+
     def init(self):
         pass
 
