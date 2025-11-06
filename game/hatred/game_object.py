@@ -10,7 +10,7 @@ class GameObject:
     def init(self):
         pass
 
-    def update(self):
+    def update(self, delta: float):
         pass
 
     def draw(self, surface: pygame.Surface):

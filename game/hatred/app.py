@@ -22,6 +22,8 @@ class App:
         self.scene_list: list[hatred.scene.Scene] = [hatred.scene.Scene("blank")]
         self.current_scene: hatred.scene.Scene = self.scene_list[0]
 
+        self.clock = pygame.time.Clock()
+
         self.FILL_COLOR: tuple = (0, 0, 0)
 
         self.signal_app_closing: hatred.signal.Publisher = hatred.signal.Publisher()
@@ -30,12 +32,19 @@ class App:
 
     def run(self):
         while self.app_running:
+            delta: float = self.clock.tick(
+                hatred.game_details.WINDOW_FPS) / 1000
+
             input_events = pygame.event.get()
             for event in input_events:
                 if event.type == pygame.QUIT:
                     self.quit_app()
 
+            self.current_scene.update(delta)
+
             self.window.fill(self.FILL_COLOR)
+
+            self.current_scene.draw(self.window)
 
             pygame.display.flip()
 

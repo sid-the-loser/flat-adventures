@@ -14,10 +14,13 @@ class Scene:
         self.camera = hatred.game_object.GameObject("camera")
 
     def init(self) -> None:
-        pass
+        for obj in self.game_objects:
+            obj.init()
 
-    def update(self) -> None:
-        pass
+    def update(self, delta: float) -> None:
+        for obj in self.game_objects:
+            obj.update(delta)
 
     def draw(self, surface: pygame.Surface) -> None:
-        pass
+        for obj in self.game_objects:
+            obj.draw(surface)
