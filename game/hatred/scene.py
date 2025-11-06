@@ -1,26 +1,31 @@
 import pygame
 
 import hatred.game_object
+import hatred.app
 
 class Scene:
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, app: hatred.app.App) -> None:
         self.active = False
         self.name = name
+        self.app = app
 
         self.game_objects: list[hatred.game_object.GameObject] = []
 
         # a default camera is necessary to keep track of world displacement
         # when it comes to rendering
-        self.camera = hatred.game_object.GameObject("camera")
+        self.camera = hatred.game_object.GameObject("camera", self)
+
+    def append_game_object(self, obj: hatred.game_object.GameObject):
+        self.game_objects.append(obj)
 
     def init(self) -> None:
         for obj in self.game_objects:
             obj.init()
 
-    def update(self, delta: float) -> None:
+    def update(self) -> None:
         for obj in self.game_objects:
-            obj.update(delta)
+            obj.update()
 
-    def draw(self, surface: pygame.Surface) -> None:
+    def draw(self) -> None:
         for obj in self.game_objects:
-            obj.draw(surface)
+            obj.draw()

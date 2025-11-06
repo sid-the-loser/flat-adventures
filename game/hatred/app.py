@@ -20,10 +20,12 @@ class App:
         # pygame.display.set_icon(window_icon_surface)
 
         self.scene_list: list[hatred.scene.Scene] = [
-            hatred.scene.Scene("blank")]
+            hatred.scene.Scene("blank", self)]
         self.current_scene: hatred.scene.Scene = self.scene_list[0]
 
         self.clock = pygame.time.Clock()
+
+        self.events: list[pygame.Event] = pygame.event.get()
 
         self.FILL_COLOR: tuple = (0, 0, 0)
 
@@ -36,16 +38,16 @@ class App:
             delta: float = self.clock.tick(
                 hatred.game_details.WINDOW_FPS) / 1000
 
-            input_events = pygame.event.get()
-            for event in input_events:
+            self.events = pygame.event.get()
+            for event in self.events:
                 if event.type == pygame.QUIT:
                     self.quit_app()
 
-            self.current_scene.update(delta)
+            self.current_scene.update()
 
             self.window.fill(self.FILL_COLOR)
 
-            self.current_scene.draw(self.window)
+            self.current_scene.draw()
 
             pygame.display.flip()
 
@@ -61,7 +63,7 @@ class App:
             raise SceneNameAlreadyInUse(
                 f"\"{scene_name}\" is already in use by another scene at scene_list[{potential_index}]")
 
-        self.scene_list.append(hatred.scene.Scene(scene_name))
+        self.scene_list.append(hatred.scene.Scene(scene_name, self))
 
     def remove_scene(self, scene_name: str) -> None:
         for i in range(len(self.scene_list)):
