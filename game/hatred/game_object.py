@@ -14,14 +14,16 @@ class GameObject:
         self.scene.append_game_object(self)
 
     def append_component(self, component: hatred.component.Component):
-        pass
+        self.components.append(component)
 
     def init(self):
-        for component in self.components:
-            component.init()
+        for comp in self.components:
+            comp.init()
 
     def update(self):
-        pass
+        for comp in self.components:
+            comp.update()
 
     def draw(self):
-        pass
+        for comp in self.components:
+            comp.draw()

@@ -22,7 +22,9 @@ class App:
         
         hatred.scene.Scene("blank", self) # scene will load into a blank screen
 
-        self.current_scene: hatred.scene.Scene = self.scene_list[0]
+        self.current_scene: hatred.scene.Scene
+
+        self.switch_to_scene("blank")
 
         self.clock = pygame.time.Clock()
         # this could lead to glitches, but this only persists the first frame of
@@ -89,8 +91,9 @@ class App:
             if _s.name != scene_name:
                 _s.active = False
             else:
-                _s.active = True
                 self.current_scene = _s
+                _s.active = True
+                _s.init()
 
 # Errors
 
