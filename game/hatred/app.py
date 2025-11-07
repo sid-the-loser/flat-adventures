@@ -59,7 +59,7 @@ class App:
         self.app_running = False
 
     def add_scene(self, scene: hatred.scene.Scene) -> None:
-        potential_index: int = self.find_scene_by_name(scene.name)
+        potential_index: int = self.find_scene_index_by_name(scene.name)
         if potential_index >= 0:
             raise SceneNameAlreadyInUse(
                 f"\"{scene.name}\" is already in use by another scene at scene_list[{potential_index}]")
@@ -74,7 +74,7 @@ class App:
         else:
             raise SceneNameError(f"\"{scene_name}\" could not be found!")
         
-    def find_scene_by_name(self, scene_name: str) -> int:
+    def find_scene_index_by_name(self, scene_name: str) -> int:
         for i in range(len(self.scene_list)):
             if self.scene_list[i].name == scene_name:
                 return i
@@ -82,7 +82,7 @@ class App:
             return -1
 
     def switch_to_scene(self, scene_name: str) -> None:
-        if self.find_scene_by_name(scene_name) < 0:
+        if self.find_scene_index_by_name(scene_name) < 0:
             raise SceneNameError(f"\"{scene_name}\" could not be found!")
 
         for _s in self.scene_list:

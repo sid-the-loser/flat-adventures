@@ -17,8 +17,31 @@ class Scene:
 
         self.app.add_scene(self)
 
-    def append_game_object(self, obj: hatred.game_object.GameObject):
+    def append_game_object(self, obj: hatred.game_object.GameObject) -> None:
         self.game_objects.append(obj)
+
+    def remove_game_object(self, game_object: hatred.game_object.GameObject) -> None:
+        self.game_objects.remove(game_object)
+
+    def remove_game_object_by_name(self, name: str) -> None:
+        potential_index = self.find_game_object_index_by_name(name)
+
+        if potential_index >= 0:
+            pass
+
+    def find_game_object_by_name(self, name: str) -> hatred.game_object.GameObject | None:
+        for i in range(len(self.game_objects)):
+            if self.game_objects[i].name == name:
+                return self.game_objects[i]
+        else:
+            return None
+        
+    def find_game_object_index_by_name(self, name: str) -> int:
+        for i in range(len(self.game_objects)):
+            if self.game_objects[i].name == name:
+                return i
+        else:
+            return -1
 
     def init(self) -> None:
         for obj in self.game_objects:
