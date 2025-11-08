@@ -2,6 +2,7 @@ import pygame
 
 import hatred.game_object
 import hatred.app
+import hatred.math_plus
 
 class Scene:
     def __init__(self, name: str, parent_app) -> None:
@@ -14,6 +15,8 @@ class Scene:
         # a default camera is necessary to keep track of world displacement
         # when it comes to rendering
         self.camera = hatred.game_object.GameObject("camera", self)
+
+        self.world_render_origin = hatred.math_plus.Vector2() # TODO: Implement camera based rendering!
 
         self.app.add_scene(self)
 
@@ -45,12 +48,15 @@ class Scene:
 
     def init(self) -> None:
         for obj in self.game_objects:
-            obj.init()
+            if obj.active:
+                obj.init()
 
     def update(self) -> None:
         for obj in self.game_objects:
-            obj.update()
+            if obj.active:
+                obj.update()
 
     def draw(self) -> None:
         for obj in self.game_objects:
-            obj.draw()
+            if obj.active:
+                obj.draw()

@@ -11,9 +11,9 @@ BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 myApp = hatred.app.App()
 
-test_scene = hatred.scene.Scene("test", myApp)
+s_test = hatred.scene.Scene("test", myApp)
 
-hatred.game_object.GameObject("player", test_scene)
+go_player = hatred.game_object.GameObject("player", s_test)
 
 myApp.switch_to_scene("test")
 
