@@ -5,7 +5,7 @@ class Component:
         self.name: str = name
         self.game_object: hatred.game_object.GameObject = game_object
 
-        game_object.append_component(self)
+        self.game_object.append_component(self)
     
     def init(self):
         pass
