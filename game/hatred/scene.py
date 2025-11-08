@@ -4,10 +4,10 @@ import hatred.game_object
 import hatred.app
 
 class Scene:
-    def __init__(self, name: str, app: hatred.app.App) -> None:
+    def __init__(self, name: str, parent_app) -> None:
         self.active = False
         self.name = name
-        self.app: hatred.app.App = app
+        self.app: hatred.app.App = parent_app
 
         self.game_objects: list[hatred.game_object.GameObject] = []
 

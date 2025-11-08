@@ -5,9 +5,9 @@ import hatred.component
 import hatred.scene
 
 class GameObject:
-    def __init__(self, name: str, scene: hatred.scene.Scene) -> None:
+    def __init__(self, name: str, parent_scene) -> None:
         self.name: str = name
-        self.scene: hatred.scene.Scene = scene
+        self.scene: hatred.scene.Scene = parent_scene
         self.position = hatred.math_plus.Vector2()
         self.components: list[hatred.component.Component] = []
 
