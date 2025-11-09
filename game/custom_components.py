@@ -24,9 +24,18 @@ class PlayerControls(Component):
             if event.type == pygame.KEYUP:
                 pass
 
-class DrawRect(Component):
+class DrawPlayer(Component):
     def __init__(self, parent_game_object) -> None:
         super().__init__("DrawRect", parent_game_object)
 
+    def update(self):
+        go_position = self.game_object.position
+        wr_position = self.game_object.scene.world_render_origin
+
+        # TODO: do some math shit
+
     def draw(self):
-        pass
+        surface = self.game_object.scene.app.window
+        position = self.game_object.position
+
+        pygame.draw.rect(surface, (255, 0, 0), ())

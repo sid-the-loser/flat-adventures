@@ -5,7 +5,6 @@ import hatred
 import hatred.app
 import hatred.scene
 import hatred.game_object
-import hatred.component
 
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 

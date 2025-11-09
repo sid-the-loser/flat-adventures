@@ -12,11 +12,7 @@ class Scene:
 
         self.game_objects: list[hatred.game_object.GameObject] = []
 
-        # a default camera is necessary to keep track of world displacement
-        # when it comes to rendering
-        self.camera = hatred.game_object.GameObject("camera", self)
-
-        self.world_render_origin = hatred.math_plus.Vector2() # TODO: Implement camera based rendering!
+        self.world_render_origin = hatred.math_plus.Vector2() # worlds kinda like a camera
 
         self.app.add_scene(self)
 

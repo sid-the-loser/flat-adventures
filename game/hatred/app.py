@@ -24,7 +24,7 @@ class App:
 
         self.current_scene: hatred.scene.Scene
 
-        self.switch_to_scene("blank")
+        self.switch_to_scene("blank") # current scene gets updated here!
 
         self.clock = pygame.time.Clock()
         # this could lead to glitches, but this only persists the first frame of
