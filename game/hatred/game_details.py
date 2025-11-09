@@ -1,5 +1,4 @@
 import pygame
-import os
 
 GAME_NAME: str = "flat adventures"
 GAME_VERSION: str = "ea0.0.1"

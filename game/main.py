@@ -16,6 +16,7 @@ s_test = hatred.scene.Scene("test", myApp)
 go_player = hatred.game_object.GameObject("player", s_test)
 
 custom_components.DrawPlayer(go_player)
+custom_components.PlayerControls(go_player)
 
 myApp.switch_to_scene("test")
 
