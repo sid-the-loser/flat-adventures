@@ -1,7 +1,9 @@
 import pygame
 
+from hatred.game_details import WINDOW_SIZE
+from hatred.game_object import GameObject
 from hatred.component import Component
-from hatred.math_plus import Vector2
+from hatred.math_plus import Vector2, lerp
 
 class PlayerControls(Component):
     def __init__(self, parent_game_object) -> None:
@@ -27,15 +29,21 @@ class PlayerControls(Component):
 class DrawPlayer(Component):
     def __init__(self, parent_game_object) -> None:
         super().__init__("DrawRect", parent_game_object)
+        self.render_position: Vector2 = Vector2()
+        self.rect_size = Vector2(8, 16)
 
-    def update(self):
-        go_position = self.game_object.position
-        wr_position = self.game_object.scene.world_render_origin
+    def init(self):
+        self.game_object.scene.world_render_origin.set(
+            self.game_object.position.x - (self.rect_size.x // 2),
+            self.game_object.position.y - (self.rect_size.y // 2)
+        )
 
-        # TODO: do some math shit
+        self.render_position.set(
+            self.game_object.scene.world_render_origin.x - WINDOW_SIZE[0],
+            self.game_object.scene.world_render_origin.y - WINDOW_SIZE[1]
+        )
 
     def draw(self):
-        surface = self.game_object.scene.app.window
-        position = self.game_object.position
-
-        pygame.draw.rect(surface, (255, 0, 0), ())
+        pygame.draw.rect(self.game_object.scene.app.window, (255, 0, 0), 
+                         (self.render_position.x, self.render_position.x, 
+                          self.rect_size.x, self.rect_size.y))

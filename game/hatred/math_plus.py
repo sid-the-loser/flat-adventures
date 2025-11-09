@@ -87,5 +87,27 @@ class Vector2:
         """Return a vector perpendicular to this one (rotated 90 degrees CCW)."""
         return Vector2(-self.y, self.x)
 
-    def tuple(self):
+    def tuple(self) -> tuple:
         return (self.x, self.y)
+    
+    def get(self):
+        return Vector2(self.x, self.y)
+    
+    def set(self, x: float | int, y: float | int) -> None:
+        self.x = x
+        self.y = y
+
+    def get_x(self) -> float | int:
+        return self.x
+    
+    def get_y(self) -> float | int:
+        return self.y
+    
+    def set_x(self, value: float | int) -> None:
+        self.x = value
+    
+    def set_y(self, value: float | int) -> None:
+        self.y = value
+
+def lerp(a, b, t):
+    return a + t * (b - a)

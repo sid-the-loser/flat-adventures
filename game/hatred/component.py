@@ -1,9 +1,10 @@
 import hatred.game_object
 
 class Component:
-    def __init__(self, name: str, parent_game_object) -> None:
+    def __init__(self, name: str, parent_game_object, active: bool = True) -> None:
         self.name: str = name
         self.game_object: hatred.game_object.GameObject = parent_game_object
+        self.active = active
 
         self.game_object.append_component(self)
     
