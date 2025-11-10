@@ -1,4 +1,4 @@
-import pygame
+from copy import deepcopy
 
 import hatred.game_object
 import hatred.app
@@ -11,6 +11,7 @@ class Scene:
         self.app: hatred.app.App = parent_app
 
         self.game_objects: list[hatred.game_object.GameObject] = []
+        self.render_sorted_game_objects: list[hatred.game_object.GameObject] = []
 
         self.world_render_origin = hatred.math_plus.Vector2() # worlds kinda like a camera
 
@@ -18,6 +19,7 @@ class Scene:
 
     def append_game_object(self, obj: hatred.game_object.GameObject) -> None:
         self.game_objects.append(obj)
+        self.render_sort(obj)
 
     def remove_game_object(self, game_object: hatred.game_object.GameObject) -> None:
         self.game_objects.remove(game_object)
@@ -53,6 +55,10 @@ class Scene:
                 obj.update()
 
     def draw(self) -> None:
-        for obj in self.game_objects:
+        for obj in self.render_sorted_game_objects:
             if obj.active:
                 obj.draw()
+
+    def render_sort(self, new_obj: hatred.game_object.GameObject):
+        if len(self.render_sorted_game_objects):
+            pass # work on this

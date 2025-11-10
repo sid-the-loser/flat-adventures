@@ -3,10 +3,11 @@ import hatred.component
 import hatred.scene
 
 class GameObject:
-    def __init__(self, name: str, parent_scene, active: bool = True) -> None:
+    def __init__(self, name: str, parent_scene, active: bool = True, layer: int = 0) -> None:
         self.name: str = name
         self.scene: hatred.scene.Scene = parent_scene
         self.active = active
+        self.layer = layer
 
         self.position = hatred.math_plus.Vector2()
         self.components: list[hatred.component.Component] = []
