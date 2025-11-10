@@ -61,4 +61,4 @@ class Scene:
 
     def render_sort(self, new_obj: hatred.game_object.GameObject):
         if len(self.render_sorted_game_objects):
-            pass # work on this
+            pass # TODO: work on this
