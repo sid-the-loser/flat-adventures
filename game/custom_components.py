@@ -70,3 +70,5 @@ class DrawDummy(Component):
         pygame.draw.rect(self.game_object.scene.app.window, (0, 255, 0), 
                          (self.game_object.position.x + wro.x, 
                           self.game_object.position.y + wro.y, 8, 8))
+        
+# TODO: add global components
