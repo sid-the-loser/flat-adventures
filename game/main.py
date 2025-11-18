@@ -9,16 +9,13 @@ import custom_components
 
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
+ASSETS_PATH = os.path.join(BASE_PATH, "./assets/")
+
 myApp = hatred.app.App()
 
-s_test = hatred.scene.Scene("test", myApp)
+s_splash_screen = hatred.scene.Scene("SplashScreen", myApp)
 
-go_player = hatred.game_object.GameObject("player", s_test, layer=10)
-custom_components.DrawPlayer(go_player)
-custom_components.PlayerControls(go_player)
+s_main_menu = hatred.scene.Scene("MainMenu", myApp)
 
-dummy_player = hatred.game_object.GameObject("dummy", s_test)
-custom_components.DrawDummy(dummy_player)
-
-myApp.switch_to_scene("test")
+myApp.switch_to_scene("SplashScreen")
 myApp.run()

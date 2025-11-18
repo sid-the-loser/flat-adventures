@@ -1,6 +1,6 @@
 # flat adventures
 
-> This project was made as a part of my Game Development Workshop class.
+> This project was made as a part of my Game Development Workshop V class.
 
 ## About
 
@@ -8,7 +8,13 @@ A [Minicraft](https://minicraftplus.github.io/) clone built using Hatred.
 
 ## What is Hatred?
 
-It's an engine built around another engine. The engine in question being [PyGame - Community Edition](https://pypi.org/project/pygame-ce/) (some people call it a framework, I just call it an engine since it suites my defintion.)
+It's an engine built around another engine. The engine in question being [pygame - Community Edition](https://pypi.org/project/pygame-ce/) (some people call it a framework, I just call it an engine since it suites my defintion.)
+
+> My definition of an engine: Any library or GUI based editor that can give my some support when working on games.
+
+## Progress Checks
+
+I have created a Trello board so anybody can check how the progress for the game is looking: https://trello.com/b/7uDdfspz/flat-adventures
 
 ## Dependencies
 
