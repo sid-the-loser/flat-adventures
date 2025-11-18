@@ -34,4 +34,6 @@ class PlayerControls(Component):
 class DrawPlayer(Component):
     def __init__(self, parent_game_object) -> None:
         super().__init__("DrawRect", parent_game_object)
-        # Add rendering code here
+        
+    def draw(self):
+        return super().draw()
