@@ -3,6 +3,7 @@ import sys
 
 import hatred.scene
 import hatred.game_details
+import hatred.component
 
 class App:
     def __init__(self) -> None:
@@ -17,6 +18,8 @@ class App:
         # TODO: Value not populated in hatred.game_details
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
+
+        self.global_components: list[hatred.component.GlobalComponent] = []
 
         self.scene_list: list[hatred.scene.Scene] = []
         
@@ -38,6 +41,9 @@ class App:
         self.app_running: bool = True
 
     def run(self):
+        for g_comp in self.global_components:
+            g_comp.init()
+
         while self.app_running:
             self.delta_time: float = self.clock.tick(
                 hatred.game_details.WINDOW_FPS) / 1000
@@ -47,11 +53,23 @@ class App:
                 if event.type == pygame.QUIT:
                     self.quit_app()
 
+            for g_comp in self.global_components:
+                g_comp.early_update()
+
             self.current_scene.update()
+
+            for g_comp in self.global_components:
+                g_comp.late_update()
 
             self.window.fill(self.FILL_COLOR)
 
+            for g_comp in self.global_components:
+                g_comp.early_draw()
+
             self.current_scene.draw()
+
+            for g_comp in self.global_components:
+                g_comp.late_draw()
 
             pygame.display.flip()
 
@@ -95,6 +113,8 @@ class App:
                 _s.active = True
                 _s.init()
 
+    def append_global_component(self, global_component: hatred.component.GlobalComponent):
+        self.global_components.append(global_component)
 # Errors
 
 class SceneNameError(Exception):
