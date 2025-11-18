@@ -13,7 +13,7 @@ myApp = hatred.app.App()
 
 s_test = hatred.scene.Scene("test", myApp)
 
-go_player = hatred.game_object.GameObject("player", s_test)
+go_player = hatred.game_object.GameObject("player", s_test, layer=10)
 custom_components.DrawPlayer(go_player)
 custom_components.PlayerControls(go_player)
 
@@ -21,5 +21,4 @@ dummy_player = hatred.game_object.GameObject("dummy", s_test)
 custom_components.DrawDummy(dummy_player)
 
 myApp.switch_to_scene("test")
-
 myApp.run()

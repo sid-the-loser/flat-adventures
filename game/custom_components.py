@@ -66,7 +66,6 @@ class DrawDummy(Component):
         
     def draw(self):
         wro = self.game_object.scene.world_render_origin
-        print("Im rendering it")
 
         pygame.draw.rect(self.game_object.scene.app.window, (0, 255, 0), 
                          (self.game_object.position.x + wro.x, 
