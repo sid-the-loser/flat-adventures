@@ -14,7 +14,7 @@ It's an engine built around another engine. The engine in question being [pygame
 
 ## Progress Checks
 
-I have created a Trello board so anybody can check how the progress for the game is looking: https://trello.com/b/7uDdfspz/flat-adventures
+I have created a Kanban chart in Trello so anybody can check how the progress for the game is looking: https://trello.com/b/7uDdfspz/flat-adventures
 
 ## Dependencies
 

@@ -22,13 +22,18 @@ class Scene:
         self.render_sort(obj)
 
     def remove_game_object(self, game_object: hatred.game_object.GameObject) -> None:
-        self.game_objects.remove(game_object)
+        if game_object in self.game_objects:
+            self.game_objects.remove(game_object)
+        else:
+            raise NoSuchGameObjectFound(f"GameObject \"{game_object.name}\" not found in this scene \"{self.name}\"!")
 
     def remove_game_object_by_name(self, name: str) -> None:
         potential_index = self.find_game_object_index_by_name(name)
 
         if potential_index >= 0:
-            pass
+            self.game_objects.pop(potential_index)
+        else:
+            raise NoSuchGameObjectFound(f"GameObject with \"{name}\" not found in this scene \"{self.name}\"!")
 
     def find_game_object_by_name(self, name: str) -> hatred.game_object.GameObject | None:
         for i in range(len(self.game_objects)):
@@ -69,3 +74,6 @@ class Scene:
                     return None
                 
         self.render_sorted_game_objects.append(new_obj)
+
+class NoSuchGameObjectFound(Exception):
+    pass
