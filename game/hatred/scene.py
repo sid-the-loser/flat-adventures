@@ -59,14 +59,13 @@ class Scene:
             if obj.active:
                 obj.draw()
 
-    def render_sort(self, new_obj: hatred.game_object.GameObject):
+    def render_sort(self, new_obj: hatred.game_object.GameObject) -> None:
         length = len(self.render_sorted_game_objects)
 
         if length > 0:
             for i in range(length):
                 if self.render_sorted_game_objects[i].layer > new_obj.layer:
                     self.render_sorted_game_objects.insert(i, new_obj)
-                    break
-
-        else:
-            self.render_sorted_game_objects.append(new_obj)
+                    return None
+                
+        self.render_sorted_game_objects.append(new_obj)
