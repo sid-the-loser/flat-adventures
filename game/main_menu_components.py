@@ -1,5 +1,6 @@
 import pygame
 import os
+import math
 
 from hatred.component import Component
 from hatred.math_plus import lerp
@@ -8,39 +9,111 @@ BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 ASSETS_PATH = os.path.join(BASE_PATH, "assets/")
 
-FONTS_PATH = os.path.join(ASSETS_PATH, "fonts/Tiny5-Regular.ttf")
+FONT_PATH = os.path.join(ASSETS_PATH, "fonts/Tiny5-Regular.ttf")
 
 class TitleLabel(Component):
     def __init__(self, parent_game_object, active: bool = True) -> None:
         super().__init__("TitleLabel", parent_game_object, active)
-        self.title_font = pygame.font.Font(FONTS_PATH, 72)
+        self.selected_button = 0
+
+        self.title_font = pygame.font.Font(FONT_PATH, 72)
+        self.button_font = pygame.font.Font(FONT_PATH, 48)
+
+        self.unselected_button_c = (200, 200, 200)
+        self.selected_button_c = (255, 255, 0)
 
         self.title_img = self.title_font.render("Flat Adventures", True, 
                                                 (255, 255, 255))
-        self.title_rect = self.title_img.get_rect()
-
-        self.title_rect.x = 50
-        self.title_rect.y = 250
+        self.singleplayer_button_img = self.button_font.render("Singleplayer", 
+                                                               True, 
+                                                                (200, 200, 200))
+        self.multiplayer_button_img = self.button_font.render("Multiplayer", 
+                                                              True, 
+                                                              (200, 200, 200))
+        self.quit_button_img = self.button_font.render("Quit", True, 
+                                                       (200, 200, 200))
+        
+        self.title_rect = self.title_img.get_rect(center=(300, 300))
+        self.singleplayer_button_rect = self.singleplayer_button_img.get_rect()
+        self.multiplayer_button_rect = self.multiplayer_button_img.get_rect()
+        self.quit_button_rect = self.quit_button_img.get_rect()
 
         self.animation_speed_x = self.title_rect.x / self.title_rect.y
+        self.singleplayer_button_rect.y = 72
+        self.multiplayer_button_rect.y = 72 + 48
+        self.quit_button_rect.y = 72 + (48 * 2)
 
         self.title_triggered_flag = False
+
+    def init(self):
+        self.selected_button = 0
+        self.render_button_fonts()
 
     def update(self):
         global title_triggered_flag
 
         delta = self.game_object.scene.app.delta_time
 
-        if not self.title_triggered_flag:
-            for event in self.game_object.scene.app.events:
-                if event.type == pygame.KEYDOWN:
+        for event in self.game_object.scene.app.events:
+            if event.type == pygame.KEYDOWN:
+                if not self.title_triggered_flag:
                     self.title_triggered_flag = True
 
-        else:
+                else:
+                    if event.key == pygame.K_RETURN:
+                        self.okay_triggered()
+
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        self.selected_button -= 1
+                        self.blink_timer = 1
+                        if self.selected_button < 0:
+                            self.selected_button = 0
+                        else:
+                            self.render_button_fonts()
+
+                    elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        self.selected_button += 1
+                        self.blink_timer = 1
+                        if self.selected_button > 2:
+                            self.selected_button = 2
+                        else:
+                            self.render_button_fonts()
+            
+        if self.title_triggered_flag:
             if self.title_rect.x != 0 or self.title_rect.y != 0:
                 self.title_rect.x = lerp(self.title_rect.x, 0, 
                                          delta * self.animation_speed_x)
                 self.title_rect.y = lerp(self.title_rect.y, 0, delta)
 
     def draw(self):
-        self.game_object.scene.app.window.blit(self.title_img, self.title_rect)
+        window = self.game_object.scene.app.window
+
+        window.blit(self.title_img, self.title_rect)
+
+        if self.title_triggered_flag:
+            window.blit(self.singleplayer_button_img, 
+                        self.singleplayer_button_rect)
+            window.blit(self.multiplayer_button_img, 
+                        self.multiplayer_button_rect)
+            window.blit(self.quit_button_img, 
+                        self.quit_button_rect)
+
+    def render_button_fonts(self):
+        self.singleplayer_button_img = self.button_font.render("Singleplayer", 
+                                                               True, 
+                                                               self.selected_button_c if (self.selected_button == 0) else self.unselected_button_c)
+        self.multiplayer_button_img = self.button_font.render("Multiplayer", 
+                                                              True, 
+                                                              self.selected_button_c if (self.selected_button == 1) else self.unselected_button_c)
+        self.quit_button_img = self.button_font.render("Quit", True, 
+                                                       self.selected_button_c if (self.selected_button == 2) else self.unselected_button_c)  
+        
+    def okay_triggered(self):
+        if self.selected_button == 0:
+            print("Singleplayer")
+
+        elif self.selected_button == 1:
+            print("Multiplayer")
+
+        elif self.selected_button == 2:
+            self.game_object.scene.app.quit_app()
