@@ -109,5 +109,8 @@ class Vector2:
     def set_y(self, value: float | int) -> None:
         self.y = value
 
+    def round(self, decimals: int | None = None):
+        return Vector2(round(self.x, decimals), round(self.y, decimals))
+
 def lerp(a, b, t):
     return a + t * (b - a)

@@ -8,38 +8,69 @@ class PlayerControls(Component):
     def __init__(self, parent_game_object) -> None:
         super().__init__("PlayerControls", parent_game_object)
 
-        self.movement_dirction = Vector2()
+        self.movement_speed = 10
+        self.friction = 2
+
+        self.input_direction: list[int] = [0, 0, 0, 0]
+        self.movement_direction = Vector2()
         self.velocity = Vector2()
     
     def init(self) -> None:
-        self.movement_dirction *= 0
+        self.movement_direction *= 0
         self.velocity *= 0
 
     def update(self) -> None:
         events = self.game_object.scene.app.events
+        delta = self.game_object.scene.app.delta_time
 
         for event in events:
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
-                    self.game_object.position.x -= 100
-                elif event.key == pygame.K_d:
-                    self.game_object.position.x += 100
+                    self.input_direction[0] = 0
+
+                if event.key == pygame.K_d:
+                    self.input_direction[1] = 0
 
                 if event.key == pygame.K_w:
-                    self.game_object.position.y -= 100
-                elif event.key == pygame.K_s:
-                    self.game_object.position.y += 100
+                    self.input_direction[2] = 0
 
-            if event.type == pygame.KEYUP:
-                pass
+                if event.key == pygame.K_s:
+                    self.input_direction[3] = 0
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    self.input_direction[0] = 1
+
+                if event.key == pygame.K_d:
+                    self.input_direction[1] = 1
+
+                if event.key == pygame.K_w:
+                    self.input_direction[2] = 1
+
+                if event.key == pygame.K_s:
+                    self.input_direction[3] = 1
+
+        self.movement_direction.set(self.input_direction[1]-self.input_direction[0],
+                                    self.input_direction[3]-self.input_direction[2])
+
+        self.velocity.set(lerp(self.velocity.x, 
+                               self.movement_direction.x * self.movement_speed, 
+                               delta * self.friction),
+                          lerp(self.velocity.y, 
+                               self.movement_direction.y * self.movement_speed, 
+                               delta * self.friction))
+        
+        self.game_object.position += self.velocity
 
 class DrawPlayer(Component):
     def __init__(self, parent_game_object) -> None:
         super().__init__("DrawPlayer", parent_game_object)
-        self.cam_offset = (WINDOW_SIZE[0], WINDOW_SIZE[1])
+        self.cam_offset = (WINDOW_SIZE[0]/2, WINDOW_SIZE[1]/2)
+
+        self.cam_speed = 10
 
     def init(self) -> None:
-        self.game_object.scene.world_render_origin = Vector2(
+        self.game_object.scene.world_render_origin.set(
                 self.cam_offset[0] - self.game_object.position.x, # displacement of 300 on both x and y
                 self.cam_offset[1] - self.game_object.position.y
             )
@@ -48,9 +79,11 @@ class DrawPlayer(Component):
         wro = self.game_object.scene.world_render_origin
         dt = self.game_object.scene.app.delta_time
 
-        self.game_object.scene.world_render_origin = Vector2(
-            lerp(wro.x, self.cam_offset[0] - self.game_object.position.x, dt), # displacement of 300 on both x and y
-            lerp(wro.y, self.cam_offset[1] - self.game_object.position.y, dt)
+        self.game_object.scene.world_render_origin.set(
+            lerp(wro.x, self.cam_offset[0] - self.game_object.position.x, 
+                 dt * self.cam_speed), # displacement of 300 on both x and y
+            lerp(wro.y, self.cam_offset[1] - self.game_object.position.y, 
+                 dt * self.cam_speed)
         )
         
     def draw(self) -> None:

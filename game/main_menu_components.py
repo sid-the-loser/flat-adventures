@@ -43,9 +43,10 @@ class TitleLabel(Component):
         self.quit_button_rect = self.quit_button_img.get_rect()
 
         self.animation_speed_x = self.title_rect.x / self.title_rect.y
+
         self.singleplayer_button_rect.y = 72
         self.multiplayer_button_rect.y = 72 + 48
-        self.quit_button_rect.y = 72 + (48 * 2)
+        self.quit_button_rect.y = 72 + (48 * 2) # maybe use game object position ma guy
 
         self.title_triggered_flag = False
         self.render_buttons_flag = False
@@ -68,6 +69,7 @@ class TitleLabel(Component):
                     self.title_rect.x = 0
                     self.title_rect.y = 0
 
+                if self.render_buttons_flag:
                     if event.key == pygame.K_RETURN:
                         self.okay_triggered()
 
@@ -123,7 +125,7 @@ class TitleLabel(Component):
         
     def okay_triggered(self):
         if self.selected_button == 0:
-            print("Singleplayer")
+            self.game_object.scene.app.switch_to_scene("Singleplayer")
 
         elif self.selected_button == 1:
             print("Multiplayer")

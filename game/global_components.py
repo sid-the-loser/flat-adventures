@@ -25,4 +25,4 @@ class DebugKeyLogic(GlobalComponent):
 
                 if event.key == pygame.K_ESCAPE:
                     if not IS_BUILD: # TODO: Removed later to support pause menu
-                        self.app.quit_app()
+                        self.app.switch_to_scene("MainMenu")

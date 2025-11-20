@@ -19,7 +19,7 @@ class Scene:
 
     def append_game_object(self, obj: hatred.game_object.GameObject) -> None:
         self.game_objects.append(obj)
-        self.render_sort(obj)
+        self.add_render_sort(obj)
 
     def remove_game_object(self, game_object: hatred.game_object.GameObject) -> None:
         if game_object in self.game_objects:
@@ -64,16 +64,14 @@ class Scene:
             if obj.active:
                 obj.draw()
 
-    def render_sort(self, new_obj: hatred.game_object.GameObject) -> None:
-        length = len(self.render_sorted_game_objects)
-
-        if length > 0:
-            for i in range(length):
-                if self.render_sorted_game_objects[i].layer > new_obj.layer:
-                    self.render_sorted_game_objects.insert(i, new_obj)
-                    return None
-                
+    def add_render_sort(self, new_obj: hatred.game_object.GameObject) -> None:
         self.render_sorted_game_objects.append(new_obj)
+        self.update_render_sort()
+
+
+    def update_render_sort(self):
+        self.render_sorted_game_objects = sorted(self.render_sorted_game_objects, 
+                                                 key=lambda go: go.layer)
 
 class NoSuchGameObjectFound(Exception):
     pass
