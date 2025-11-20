@@ -1,8 +1,9 @@
 import pygame
 
 from hatred.component import GlobalComponent
+from hatred.game_details import IS_BUILD
 
-class FunctionKeyLogic(GlobalComponent):
+class DebugKeyLogic(GlobalComponent):
     def __init__(self, parent_app) -> None:
         super().__init__("DebugEvents", parent_app)
         self.show_debug_overlay = False
@@ -21,3 +22,7 @@ class FunctionKeyLogic(GlobalComponent):
                 if event.key == pygame.K_F11:
                     pygame.display.toggle_fullscreen()
                     # NOTE: This function works really badly with some display drivers is you are using pygame 1
+
+                if event.key == pygame.K_ESCAPE:
+                    if not IS_BUILD: # TODO: Removed later to support pause menu
+                        self.app.quit_app()

@@ -44,6 +44,7 @@ class TitleLabel(Component):
         self.quit_button_rect.y = 72 + (48 * 2)
 
         self.title_triggered_flag = False
+        self.render_buttons_flag = False
 
     def init(self):
         self.selected_button = 0
@@ -60,6 +61,9 @@ class TitleLabel(Component):
                     self.title_triggered_flag = True
 
                 else:
+                    self.title_rect.x = 0
+                    self.title_rect.y = 0
+
                     if event.key == pygame.K_RETURN:
                         self.okay_triggered()
 
@@ -81,16 +85,18 @@ class TitleLabel(Component):
             
         if self.title_triggered_flag:
             if self.title_rect.x != 0 or self.title_rect.y != 0:
-                self.title_rect.x = lerp(self.title_rect.x, 0, 
-                                         delta * self.animation_speed_x)
-                self.title_rect.y = lerp(self.title_rect.y, 0, delta)
+                self.title_rect.x = round(lerp(self.title_rect.x, 0, 
+                                         delta * self.animation_speed_x), 3)
+                self.title_rect.y = round(lerp(self.title_rect.y, 0, delta), 3)
+            else:
+                self.render_buttons_flag = True
 
     def draw(self):
         window = self.game_object.scene.app.window
 
         window.blit(self.title_img, self.title_rect)
 
-        if self.title_triggered_flag:
+        if self.render_buttons_flag:
             window.blit(self.singleplayer_button_img, 
                         self.singleplayer_button_rect)
             window.blit(self.multiplayer_button_img, 
@@ -101,12 +107,12 @@ class TitleLabel(Component):
     def render_button_fonts(self):
         self.singleplayer_button_img = self.button_font.render("Singleplayer", 
                                                                True, 
-                                                               self.selected_button_c if (self.selected_button == 0) else self.unselected_button_c)
+                                                               self.unselected_button_c if self.selected_button != 0 else self.selected_button_c)
         self.multiplayer_button_img = self.button_font.render("Multiplayer", 
                                                               True, 
-                                                              self.selected_button_c if (self.selected_button == 1) else self.unselected_button_c)
+                                                              self.unselected_button_c if self.selected_button != 1 else self.selected_button_c)
         self.quit_button_img = self.button_font.render("Quit", True, 
-                                                       self.selected_button_c if (self.selected_button == 2) else self.unselected_button_c)  
+                                                       self.unselected_button_c if self.selected_button != 2 else self.selected_button_c)  
         
     def okay_triggered(self):
         if self.selected_button == 0:
