@@ -17,6 +17,7 @@ class TitleLabel(Component):
         self.selected_button = 0
 
         self.title_font = pygame.font.Font(FONT_PATH, 72)
+        self.subtitle_font = pygame.font.Font(FONT_PATH, 24)
         self.button_font = pygame.font.Font(FONT_PATH, 48)
 
         self.unselected_button_c = (200, 200, 200)
@@ -24,6 +25,8 @@ class TitleLabel(Component):
 
         self.title_img = self.title_font.render("Flat Adventures", True, 
                                                 (255, 255, 255))
+        self.subtitle_img = self.subtitle_font.render("Press any button to continue",
+                                                      True, (255, 255, 0))
         self.singleplayer_button_img = self.button_font.render("Singleplayer", 
                                                                True, 
                                                                 (200, 200, 200))
@@ -34,6 +37,7 @@ class TitleLabel(Component):
                                                        (200, 200, 200))
         
         self.title_rect = self.title_img.get_rect(center=(300, 300))
+        self.subtitle_rect = self.subtitle_img.get_rect(center=(300, 400))
         self.singleplayer_button_rect = self.singleplayer_button_img.get_rect()
         self.multiplayer_button_rect = self.multiplayer_button_img.get_rect()
         self.quit_button_rect = self.quit_button_img.get_rect()
@@ -95,6 +99,9 @@ class TitleLabel(Component):
         window = self.game_object.scene.app.window
 
         window.blit(self.title_img, self.title_rect)
+
+        if not self.title_triggered_flag:
+            window.blit(self.subtitle_img, self.subtitle_rect)
 
         if self.render_buttons_flag:
             window.blit(self.singleplayer_button_img, 
