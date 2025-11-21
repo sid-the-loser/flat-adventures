@@ -12,4 +12,6 @@ WINDOW_ICON: str = "" # TODO: To be added later
 WINDOW_FPS: int = 30 # limited to 30 to help with performance
 
 # NOTE: Keep true when building the project
-IS_BUILD = False
+IS_BUILD: bool = False
+
+ENGINE_SPLASH_TIME: float = 2

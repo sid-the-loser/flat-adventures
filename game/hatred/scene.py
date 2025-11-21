@@ -68,7 +68,6 @@ class Scene:
         self.render_sorted_game_objects.append(new_obj)
         self.update_render_sort()
 
-
     def update_render_sort(self):
         self.render_sorted_game_objects = sorted(self.render_sorted_game_objects, 
                                                  key=lambda go: go.layer)

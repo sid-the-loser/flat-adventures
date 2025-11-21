@@ -4,6 +4,8 @@ import sys
 import hatred.scene
 import hatred.game_details
 import hatred.component
+import hatred.engine_splash_logic
+import hatred.game_object
 
 class App:
     def __init__(self) -> None:
@@ -15,6 +17,8 @@ class App:
             )
         pygame.display.set_caption(hatred.game_details.WINDOW_TITLE)
 
+        pygame.mouse.set_visible(False) # disables mouse visibility over window
+
         # TODO: Value not populated in hatred.game_details
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
@@ -22,12 +26,6 @@ class App:
         self.global_components: list[hatred.component.GlobalComponent] = []
 
         self.scene_list: list[hatred.scene.Scene] = []
-        
-        hatred.scene.Scene("blank", self) # scene will load into a blank screen
-
-        self.current_scene: hatred.scene.Scene
-
-        self.switch_to_scene("blank") # current scene gets updated here!
 
         self.clock = pygame.time.Clock()
         # this could lead to glitches, but this only persists the first frame of
@@ -39,6 +37,16 @@ class App:
         self.FILL_COLOR: tuple = (0, 0, 0)
 
         self.app_running: bool = True
+
+        # NOTE: splash screen logic at the end works better and is safer
+
+        s_engine_splash = hatred.scene.Scene("EngineSplash", self)
+        go_splash_text = hatred.game_object.GameObject("SplashText", s_engine_splash)
+        hatred.engine_splash_logic.SplashImage(go_splash_text)
+
+        self.current_scene: hatred.scene.Scene
+
+        self.switch_to_scene("EngineSplash") # current scene gets updated here!
 
     def run(self):
         for g_comp in self.global_components:
@@ -100,6 +108,22 @@ class App:
                 return i
         else:
             return -1
+        
+    def switch_to_scene_index(self, index: int) -> None:
+        length = len(self.scene_list)
+
+        if length < index+1:
+            raise SceneIndexOutOfRange(
+                f"Index ({index}) is out of range since scene_list\'s length is: {length}"
+                )
+        
+        for i in range(length):
+            if i != index:
+                self.scene_list[i].active = False
+            else:
+                self.current_scene = self.scene_list[i]
+                self.scene_list[i].active = True
+                self.scene_list[i].init()
 
     def switch_to_scene(self, scene_name: str) -> None:
         if self.find_scene_index_by_name(scene_name) < 0:
@@ -118,6 +142,9 @@ class App:
 # Errors
 
 class SceneNameError(Exception):
+    pass
+
+class SceneIndexOutOfRange(Exception):
     pass
 
 class SceneNameAlreadyInUse(Exception):

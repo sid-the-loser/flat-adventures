@@ -23,17 +23,17 @@ class TitleLabel(Component):
         self.unselected_button_c = (200, 200, 200)
         self.selected_button_c = (255, 255, 0)
 
-        self.title_img = self.title_font.render("Flat Adventures", True, 
+        self.title_img = self.title_font.render("Flat Adventures", False, 
                                                 (255, 255, 255))
         self.subtitle_img = self.subtitle_font.render("Press any button to continue",
-                                                      True, (255, 255, 0))
+                                                      False, (255, 255, 0))
         self.singleplayer_button_img = self.button_font.render("Singleplayer", 
-                                                               True, 
+                                                               False, 
                                                                 (200, 200, 200))
         self.multiplayer_button_img = self.button_font.render("Multiplayer", 
-                                                              True, 
+                                                              False, 
                                                               (200, 200, 200))
-        self.quit_button_img = self.button_font.render("Quit", True, 
+        self.quit_button_img = self.button_font.render("Quit", False, 
                                                        (200, 200, 200))
         
         self.title_rect = self.title_img.get_rect(center=(300, 300))
@@ -115,13 +115,13 @@ class TitleLabel(Component):
 
     def render_button_fonts(self):
         self.singleplayer_button_img = self.button_font.render("Singleplayer", 
-                                                               True, 
+                                                               False, 
                                                                self.unselected_button_c if self.selected_button != 0 else self.selected_button_c)
         self.multiplayer_button_img = self.button_font.render("Multiplayer", 
-                                                              True, 
+                                                              False, 
                                                               self.unselected_button_c if self.selected_button != 1 else self.selected_button_c)
-        self.quit_button_img = self.button_font.render("Quit", True, 
-                                                       self.unselected_button_c if self.selected_button != 2 else self.selected_button_c)  
+        self.quit_button_img = self.button_font.render("Quit", False, 
+                                                       self.unselected_button_c if self.selected_button != 2 else self.selected_button_c)
         
     def okay_triggered(self):
         if self.selected_button == 0:

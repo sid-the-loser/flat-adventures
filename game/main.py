@@ -27,15 +27,11 @@ s_single_player = hatred.scene.Scene("Singleplayer", myApp)
 go_player = hatred.game_object.GameObject("Player", s_single_player)
 player_components.PlayerControls(go_player)
 player_components.DrawPlayer(go_player)
-
-go_player.layer = 10
+go_player.layer = 1
+s_single_player.update_render_sort()
 
 go_dummy = hatred.game_object.GameObject("Dummy", s_single_player)
 player_components.DrawDummy(go_dummy)
 
-s_single_player.update_render_sort()
-
-print(len(s_single_player.render_sorted_game_objects))
-
-myApp.switch_to_scene("MainMenu")
+# myApp.switch_to_scene("MainMenu")
 myApp.run()
