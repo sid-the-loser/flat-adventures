@@ -32,18 +32,9 @@ class SplashImage(Component):
         if self.color_scale > 1:
             self.color_scale = 1
 
-        if self.color_scale < 0:
-            print("less!", self.color_scale)
-        elif self.color_scale > 255:
-            print("more", self.color_scale)
-        else:
-            print("just right")
-
         self.current_color = (round(self.logo_color[0] * self.color_scale),
                               round(self.logo_color[1] * self.color_scale),
                               round(self.logo_color[2] * self.color_scale))
-        
-        print(self.current_color)
         
         if self.timer > ENGINE_SPLASH_TIME:
             self.switch_to_next()
