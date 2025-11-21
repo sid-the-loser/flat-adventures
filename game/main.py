@@ -33,5 +33,4 @@ s_single_player.update_render_sort()
 go_dummy = hatred.game_object.GameObject("Dummy", s_single_player)
 player_components.DrawDummy(go_dummy)
 
-# myApp.switch_to_scene("MainMenu")
 myApp.run()

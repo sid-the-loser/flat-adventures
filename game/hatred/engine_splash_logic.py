@@ -9,17 +9,22 @@ class SplashImage(Component):
     def __init__(self, parent_game_object, active: bool = True) -> None:
         super().__init__("SplashImage", parent_game_object, active)
         self.timer = 0
+        self.animation_timer = 0
         self.logo_color = (255, 0, 0)
         self.current_color = (0, 0, 0)
         self.color_scale = 0
+        self.reverse_scale_flag = False
         
         self.splash_img = font.render("HATRED", False, self.current_color)
         self.splash_rect = self.splash_img.get_rect(center=(WINDOW_SIZE[0]/2,
                                                             WINDOW_SIZE[1]/2))
 
     def init(self):
-        self.logo_color = (255, 0, 0)
+        self.timer = 0
+        self.animation_timer = 0
         self.current_color = (0, 0, 0)
+        self.color_scale = 0
+        self.reverse_scale_flag = False
         self.splash_img = font.render("HATRED", False, self.current_color)
 
     def update(self):
@@ -28,9 +33,19 @@ class SplashImage(Component):
 
         self.timer += delta
 
-        self.color_scale = (self.timer*2) / ENGINE_SPLASH_TIME
+        if not self.reverse_scale_flag:
+            self.animation_timer += delta
+        else:
+            self.animation_timer -= delta
+
+        self.color_scale = (self.animation_timer*2) / ENGINE_SPLASH_TIME
+
         if self.color_scale > 1:
             self.color_scale = 1
+            self.reverse_scale_flag = True
+        elif self.color_scale < 0:
+            self.color_scale = 0
+            self.reverse_scale_flag = False
 
         self.current_color = (round(self.logo_color[0] * self.color_scale),
                               round(self.logo_color[1] * self.color_scale),
