@@ -1,6 +1,7 @@
 import pygame
 import yaml
 import os
+from copy import deepcopy
 
 from hatred.component import GlobalComponent
 from hatred.game_details import IS_BUILD
@@ -15,12 +16,24 @@ default_config = {
 class ConfigForP2P(GlobalComponent):
     def __init__(self, parent_app, path: str) -> None:
         super().__init__("ConfigForP2P", parent_app)
-        self.path = path
-        self.config = ""
+        self.path: str = path
+        self.config: dict = {}
+        
+        self.load_config()
 
     def load_config(self):
         if os.path.isfile(self.path):
-            pass
+            with open(self.path) as f:
+                self.config = yaml.safe_load(f)
+
+        else:
+            self.config = deepcopy(default_config)
+            self.save_config()
+
+    def save_config(self):
+        with open(self.path) as f:
+            yaml.safe_dump(self.config, f)
+
 
 class DebugKeyLogic(GlobalComponent):
     def __init__(self, parent_app) -> None:

@@ -18,7 +18,7 @@ if os.path.exists(ASSETS_PATH):
 myApp = hatred.app.App()
 
 global_components.DebugKeyLogic(myApp)
-c_config = global_components.ConfigForP2P(myApp, os.path.join(ASSETS_PATH, "config.yaml"))
+c_config = global_components.ConfigForP2P(myApp, os.path.join(ASSETS_PATH, "config.yaml")) # TODO: work on multiplayer
 
 # Scene : Main Menu
 
