@@ -9,7 +9,7 @@ class PlayerControls(Component):
         super().__init__("PlayerControls", parent_game_object)
 
         self.movement_speed = 10
-        self.friction = 2
+        self.friction = 5
 
         self.input_direction: list[int] = [0, 0, 0, 0]
         self.movement_direction = Vector2()
