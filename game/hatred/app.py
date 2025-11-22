@@ -149,3 +149,6 @@ class SceneIndexOutOfRange(Exception):
 
 class SceneNameAlreadyInUse(Exception):
     pass
+
+class NoSceneAfterSplashScreen(Exception): # TODO: seems neesh, not used rn, might remove later
+    pass

@@ -52,7 +52,6 @@ class TitleLabel(Component):
         self.render_buttons_flag = False
 
     def init(self):
-        self.selected_button = 0
         self.render_button_fonts()
 
     def update(self):
@@ -125,10 +124,10 @@ class TitleLabel(Component):
         
     def okay_triggered(self):
         if self.selected_button == 0:
-            self.game_object.scene.app.switch_to_scene("Singleplayer")
+            self.game_object.scene.app.switch_to_scene("SingleplayerMenu")
 
         elif self.selected_button == 1:
-            print("Multiplayer")
+            self.game_object.scene.app.switch_to_scene("MultiplayerMenu")
 
         elif self.selected_button == 2:
             self.game_object.scene.app.quit_app()

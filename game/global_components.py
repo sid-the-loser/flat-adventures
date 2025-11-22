@@ -1,7 +1,26 @@
 import pygame
+import yaml
+import os
 
 from hatred.component import GlobalComponent
 from hatred.game_details import IS_BUILD
+
+default_config = {
+    "proxy_details": {
+        "ip": "localhost",
+        "port": "6969"
+    }
+}
+
+class ConfigForP2P(GlobalComponent):
+    def __init__(self, parent_app, path: str) -> None:
+        super().__init__("ConfigForP2P", parent_app)
+        self.path = path
+        self.config = ""
+
+    def load_config(self):
+        if os.path.isfile(self.path):
+            pass
 
 class DebugKeyLogic(GlobalComponent):
     def __init__(self, parent_app) -> None:
