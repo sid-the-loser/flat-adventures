@@ -1,5 +1,5 @@
 """
-Hatred is an engine built by Sidharth Suresh that wraps the PyGame library.
+Hatred is an engine built by Sidharth Suresh that wraps the pygame library.
 """
 
 import pygame
