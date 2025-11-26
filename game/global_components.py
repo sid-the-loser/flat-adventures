@@ -61,11 +61,14 @@ class ServerModel(GlobalComponent):
         self.is_connected = True
 
     def main(self):
+        phase = 0
         while self.app.app_running:
             if self.is_connected:
-                self.client.send(json.dumps({
-                    # TODO: work here!
-                }).encode())
+                if phase == 0:
+                    self.client.send(json.dumps({
+                        "type": "join"
+                    }).encode())
+
                 raw_data = ""
                 while True:
                     data = self.client.recv(1024)
