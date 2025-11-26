@@ -11,7 +11,7 @@ ASSETS_PATH = os.path.join(BASE_PATH, "assets/")
 
 FONT_PATH = os.path.join(ASSETS_PATH, "fonts/Tiny5-Regular.ttf")
 
-class TitleLabel(Component):
+class TitleLabel(Component): # TODO: fix this! Not everything should be under the same umbrella
     def __init__(self, parent_game_object, active: bool = True) -> None:
         super().__init__("TitleLabel", parent_game_object, active)
         self.selected_button = 0
@@ -124,10 +124,10 @@ class TitleLabel(Component):
         
     def okay_triggered(self):
         if self.selected_button == 0:
-            self.game_object.scene.app.switch_to_scene("SingleplayerMenu")
+            self.game_object.scene.app.switch_to_scene("Singleplayer")
 
         elif self.selected_button == 1:
-            self.game_object.scene.app.switch_to_scene("MultiplayerMenu")
+            self.game_object.scene.app.switch_to_scene("Multiplayer")
 
         elif self.selected_button == 2:
             self.game_object.scene.app.quit_app()

@@ -2,6 +2,9 @@ import pygame
 import yaml
 import os
 from copy import deepcopy
+import socket
+import threading
+import json
 
 from hatred.component import GlobalComponent
 from hatred.game_details import IS_BUILD
@@ -9,17 +12,36 @@ from hatred.game_details import IS_BUILD
 default_config = {
     "proxy_details": {
         "ip": "localhost",
-        "port": "6969"
+        "port": 6969
+    },
+    "player_details": {
+        "name": "John"
     }
 }
 
-class ConfigForP2P(GlobalComponent):
+lock = threading.Lock()
+
+class ServerModel(GlobalComponent):
     def __init__(self, parent_app, path: str) -> None:
-        super().__init__("ConfigForP2P", parent_app)
+        super().__init__("ServerModel", parent_app)
         self.path: str = path
         self.config: dict = {}
+
+        self.world_data = {}
+
+        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        self.is_connected = False
         
         self.load_config()
+
+        self.client_name = self.config["player_details"]["name"]
+        self.position = [0.0, 0.0]
+        self.ip = self.config["proxy_details"]["ip"]
+        self.port = self.config["proxy_details"]["port"]
+
+        self.my_thread = threading.Thread(target=self.main)
+        self.my_thread.start()
 
     def load_config(self):
         if os.path.isfile(self.path):
@@ -31,8 +53,29 @@ class ConfigForP2P(GlobalComponent):
             self.save_config()
 
     def save_config(self):
-        with open(self.path) as f:
+        with open(self.path, "w") as f:
             yaml.safe_dump(self.config, f)
+
+    def connect(self):
+        self.client.connect((self.ip, self.port))
+        self.is_connected = True
+
+    def main(self):
+        while self.app.app_running:
+            if self.is_connected:
+                self.client.send(json.dumps({
+                    # TODO: work here!
+                }).encode())
+                raw_data = ""
+                while True:
+                    data = self.client.recv(1024)
+                    if not data:
+                        break
+                    else:
+                        raw_data += data.decode()
+
+                json_data = json.loads(raw_data)
+
 
 
 class DebugKeyLogic(GlobalComponent):
@@ -63,7 +106,10 @@ class DebugKeyLogic(GlobalComponent):
 
                 if event.key == pygame.K_ESCAPE:
                     if not IS_BUILD: # TODO: Removed later to support pause menu
-                        self.app.switch_to_scene("MainMenu")
+                        if self.app.current_scene.name != "Singleplayer":
+                            self.app.app_running = False
+                        else:
+                            self.app.switch_to_scene("MainMenu")
 
                 if self.debug_alt_key_flag:
                     if event.key == pygame.K_p:

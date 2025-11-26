@@ -137,8 +137,23 @@ class App:
                 _s.active = True
                 _s.init()
 
-    def append_global_component(self, global_component: hatred.component.GlobalComponent):
+    def add_global_component(self, 
+                             global_component: hatred.component.GlobalComponent):
+        potential_index = self.find_global_component_index(
+            global_component.name)
+        if potential_index > -1:
+            raise SuchGlobalComponentAlreadyExists(
+                f"{global_component.name} already exists in app at index: {potential_index}")
+        
         self.global_components.append(global_component)
+
+    def find_global_component_index(self, name) -> int:
+        for i in range(len(self.global_components)):
+            if name == self.global_components[i].name:
+                return i
+            
+        return -1
+
 # Errors
 
 class SceneNameError(Exception):
@@ -148,6 +163,9 @@ class SceneIndexOutOfRange(Exception):
     pass
 
 class SceneNameAlreadyInUse(Exception):
+    pass
+
+class SuchGlobalComponentAlreadyExists(Exception):
     pass
 
 class NoSceneAfterSplashScreen(Exception): # TODO: seems neesh, not used rn, might remove later

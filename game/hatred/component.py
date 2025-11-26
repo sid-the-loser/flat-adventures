@@ -23,7 +23,7 @@ class GlobalComponent:
         self.name: str = name
         self.app: hatred.app.App = parent_app
 
-        self.app.append_global_component(self)
+        self.app.add_global_component(self)
     
     def init(self) -> None:
         pass

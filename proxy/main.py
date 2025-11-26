@@ -99,11 +99,13 @@ def handler(conn: socket.socket, addr):
     with conn:
         while running:
             try:
-                data = conn.recv(1024)
-                if not data:
-                    break
-
-                raw_data = data.decode()
+                raw_data = ""
+                while True:
+                    data = conn.recv(1024)
+                    if not data:
+                        break
+                    else:
+                        raw_data += data.decode()
                 
                 json_data = json.loads(raw_data)
 

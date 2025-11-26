@@ -1,7 +1,8 @@
 import pygame
 
 from hatred.game_details import WINDOW_SIZE
-from hatred.component import Component
+from hatred.component import Component, GlobalComponent
+from global_components import ServerModel
 from hatred.math_plus import Vector2, lerp
 
 class PlayerControls(Component):
@@ -14,10 +15,15 @@ class PlayerControls(Component):
         self.input_direction: list[int] = [0, 0, 0, 0]
         self.movement_direction = Vector2()
         self.velocity = Vector2()
+
+        self.server_model: ServerModel
     
     def init(self) -> None:
         self.movement_direction *= 0
         self.velocity *= 0
+        # NOTE: ignore this error
+        self.server_model = self.game_object.scene.app.global_components[
+            self.game_object.scene.app.find_scene_index_by_name("ServerModel")]
 
     def update(self) -> None:
         events = self.game_object.scene.app.events
@@ -62,6 +68,11 @@ class PlayerControls(Component):
         
         self.game_object.position += self.velocity
 
+        if self.server_model.is_connected:
+            self.server_model.position = [self.game_object.position.x,
+                                          self.game_object.position.y]
+
+
 class DrawPlayer(Component):
     def __init__(self, parent_game_object) -> None:
         super().__init__("DrawPlayer", parent_game_object)
@@ -90,16 +101,5 @@ class DrawPlayer(Component):
         wro = self.game_object.scene.world_render_origin
 
         pygame.draw.rect(self.game_object.scene.app.window, (255, 0, 0), 
-                         (self.game_object.position.x + wro.x, 
-                          self.game_object.position.y + wro.y, 8, 8))
-        
-class DrawDummy(Component):
-    def __init__(self, parent_game_object) -> None:
-        super().__init__("DrawDummy", parent_game_object)
-        
-    def draw(self) -> None:
-        wro = self.game_object.scene.world_render_origin
-
-        pygame.draw.rect(self.game_object.scene.app.window, (0, 255, 0), 
                          (self.game_object.position.x + wro.x, 
                           self.game_object.position.y + wro.y, 8, 8))
