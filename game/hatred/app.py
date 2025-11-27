@@ -7,6 +7,8 @@ import hatred.component
 import hatred.engine_splash_logic
 import hatred.game_object
 
+# TODO: unified input event system!
+
 class App:
     def __init__(self) -> None:
         self.window: pygame.Surface = pygame.display.set_mode(
@@ -91,7 +93,7 @@ class App:
     def add_scene(self, scene: hatred.scene.Scene) -> None:
         potential_index: int = self.find_scene_index_by_name(scene.name)
         if potential_index >= 0:
-            raise SceneNameAlreadyInUse(
+            raise SceneNameAlreadyInUseError(
                 f"\"{scene.name}\" is already in use by another scene at scene_list[{potential_index}]")
 
         self.scene_list.append(scene)
@@ -115,7 +117,7 @@ class App:
         length = len(self.scene_list)
 
         if length < index+1:
-            raise SceneIndexOutOfRange(
+            raise SceneIndexOutOfRangeError(
                 f"Index ({index}) is out of range since scene_list\'s length is: {length}"
                 )
         
@@ -144,7 +146,7 @@ class App:
         potential_index = self.find_global_component_index(
             global_component.name)
         if potential_index > -1:
-            raise SuchGlobalComponentAlreadyExists(
+            raise GlobalComponentAlreadyExistsError(
                 f"{global_component.name} already exists in app at index: {potential_index}")
         
         self.global_components.append(global_component)
@@ -155,20 +157,33 @@ class App:
                 return i
             
         return -1
+    
+    def check_input_event(self, event_id: str, mode: int = 0):
+        """
+        Modes range from 0-4
+        """
+        if event_id in hatred.game_details.INPUT_MAP:
+            pass
+        
+        else:
+            raise InputIDNotInInputMapError(f"\"{event_id}\" is not a part of the INPUT_MAP!")
 
 # Errors
 
 class SceneNameError(Exception):
     pass
 
-class SceneIndexOutOfRange(Exception):
+class SceneIndexOutOfRangeError(Exception):
     pass
 
-class SceneNameAlreadyInUse(Exception):
+class SceneNameAlreadyInUseError(Exception):
     pass
 
-class SuchGlobalComponentAlreadyExists(Exception):
+class GlobalComponentAlreadyExistsError(Exception):
     pass
 
-class NoSceneAfterSplashScreen(Exception): # TODO: seems neesh, not used rn, might remove later
+class NoSceneAfterSplashScreenError(Exception): # TODO: seems neesh, not used rn, might remove later
+    pass
+
+class InputIDNotInInputMapError(Exception):
     pass
