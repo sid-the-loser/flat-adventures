@@ -61,6 +61,7 @@ class SplashImage(Component):
                 self.switch_to_next()
 
     def draw(self):
+        self.game_object.scene.app.window.fill((0, 0, 0))
         self.game_object.scene.app.window.blit(self.splash_img, self.splash_rect)
         
     def switch_to_next(self):

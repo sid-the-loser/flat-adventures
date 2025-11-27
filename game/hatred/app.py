@@ -69,7 +69,9 @@ class App:
             for g_comp in self.global_components:
                 g_comp.late_update()
 
-            self.window.fill(self.FILL_COLOR)
+            self.window.fill((255, 0, 255))
+            pygame.draw.rect(self.window, (0, 0, 0), (0, 0, 300, 300))
+            pygame.draw.rect(self.window, (0, 0, 0), (300, 300, 300, 300))
 
             for g_comp in self.global_components:
                 g_comp.early_draw()

@@ -1,9 +1,13 @@
 import hatred
-import hatred.app
-import hatred.scene
+from hatred.app import App
+from hatred.scene import Scene
 
-myApp = hatred.app.App()
+from scripts.global_components import GlobalKeys
 
-s_main_menu = hatred.scene.Scene("MainMenu", myApp)
+myApp = App()
+
+GlobalKeys(myApp)
+
+s_main_menu = Scene("MainMenu", myApp)
 
 myApp.run()
