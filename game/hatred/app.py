@@ -1,5 +1,4 @@
 import pygame
-import sys
 
 import hatred.scene
 import hatred.game_details
@@ -19,11 +18,35 @@ class App:
             )
         pygame.display.set_caption(hatred.game_details.WINDOW_TITLE)
 
-        pygame.mouse.set_visible(False) # disables mouse visibility over window
-
         # TODO: Value not populated in hatred.game_details
         # window_icon_surface = pygame.image.load(hatred.game_details.WINDOW_ICON)
         # pygame.display.set_icon(window_icon_surface)
+
+        pygame.mouse.set_visible(False) # disables mouse visibility over window
+
+        self.input_status: dict[int, dict[str, bool]] = {}
+
+        tmp_input_map = hatred.game_details.INPUT_MAP
+
+        for name in tmp_input_map:
+            val = tmp_input_map[name]
+
+            match val:
+                case list():
+                    for k in val:
+                        if k not in self.input_status:
+                            self.input_status[k] = {
+                                "just_pressed": False,
+                                "just_released": False,
+                                "pressed" : False
+                            }
+                case int():
+                    if val not in self.input_status:
+                        self.input_status[val] = {
+                            "just_pressed": False,
+                            "just_released": False,
+                            "pressed" : False
+                        }
 
         self.global_components: list[hatred.component.GlobalComponent] = []
 
@@ -35,8 +58,6 @@ class App:
         self.delta_time = 1
 
         self.events: list[pygame.Event] = pygame.event.get()
-
-        self.FILL_COLOR: tuple = (0, 0, 0)
 
         self.app_running: bool = True
 
@@ -58,10 +79,27 @@ class App:
             self.delta_time: float = self.clock.tick(
                 hatred.game_details.WINDOW_FPS) / 1000
 
-            self.events = pygame.event.get()
+            for k in self.input_status:
+                self.input_status[k]["just_pressed"] = False
+                self.input_status[k]["just_released"] = False
+
+            self.events: list[pygame.Event] = pygame.event.get()
             for event in self.events:
                 if event.type == pygame.QUIT:
                     self.quit_app()
+
+                elif event.type == pygame.KEYDOWN:
+                    for k in self.input_status:
+                        if event.key == k:
+                            self.input_status[k]["just_pressed"] = True
+                            self.input_status[k]["pressed"] = True
+
+                elif event.type == pygame.KEYUP:
+                    for k in self.input_status:
+                        if event.key == k:
+                            self.input_status[k]["just_released"] = True
+                            self.input_status[k]["pressed"] = False
+                            
 
             for g_comp in self.global_components:
                 g_comp.early_update()
@@ -151,22 +189,30 @@ class App:
         
         self.global_components.append(global_component)
 
-    def find_global_component_index(self, name) -> int:
+    def find_global_component_index(self, name: str) -> int:
         for i in range(len(self.global_components)):
             if name == self.global_components[i].name:
                 return i
             
         return -1
     
-    def check_input_event(self, event_id: str, mode: int = 0):
-        """
-        Modes range from 0-4
-        """
-        if event_id in hatred.game_details.INPUT_MAP:
-            pass
-        
+    def input_is_pressed(self, event_name: str) -> bool:
+        input_map = hatred.game_details.INPUT_MAP
+
+        if event_name in input_map:
+            pressed_flag = False
+
+            match input_map[event_name]:
+                case list():
+                    pass # TODO: work on this
+
+                case int():
+                    pass
+
+            return pressed_flag
+
         else:
-            raise InputIDNotInInputMapError(f"\"{event_id}\" is not a part of the INPUT_MAP!")
+            raise InputIDNotInInputMapError(f"{event_name} not found in INPUT_MAP")
 
 # Errors
 

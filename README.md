@@ -18,6 +18,8 @@ I have created a Kanban chart in Trello so anybody can check how the progress fo
 
 ## Dependencies
 
+> Requires Python 3.10+
+
 | Module Name In Script | Python Install Package Script | Website/Repo Related To Dependency | Is Optional? |
 | :-: | :-: | :-: | :-: |
 | `pygame` | `pip install pygame-ce` | https://pypi.org/project/pygame-ce/ | No |

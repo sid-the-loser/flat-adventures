@@ -1,4 +1,3 @@
-import hatred
 from hatred.app import App
 from hatred.scene import Scene
 

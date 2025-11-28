@@ -1,8 +1,10 @@
+from typing import Any
+
 import hatred.game_object
 import hatred.app
 
 class Component:
-    def __init__(self, name: str, parent_game_object, active: bool = True) -> None:
+    def __init__(self, name: str, parent_game_object: Any, active: bool = True) -> None:
         self.name: str = name
         self.game_object: hatred.game_object.GameObject = parent_game_object
         self.active = active
@@ -19,7 +21,7 @@ class Component:
         pass
 
 class GlobalComponent:
-    def __init__(self, name: str, parent_app) -> None:
+    def __init__(self, name: str, parent_app: Any) -> None:
         self.name: str = name
         self.app: hatred.app.App = parent_app
 
