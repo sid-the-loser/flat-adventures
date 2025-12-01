@@ -10,3 +10,6 @@ class GlobalKeys(GlobalComponent):
     def early_update(self) -> None:
         if self.app.input_is_pressed("fullscreen"):
             pygame.display.toggle_fullscreen()
+
+        elif self.app.input_is_pressed("force_quit"):
+            self.app.quit_app()

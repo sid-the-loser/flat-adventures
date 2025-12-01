@@ -1,1 +1,4 @@
-# TODO: work on this
+from hatred.component import Component
+
+class Title(Component):
+    pass
