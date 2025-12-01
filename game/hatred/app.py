@@ -202,12 +202,72 @@ class App:
         if event_name in input_map:
             pressed_flag = False
 
-            match input_map[event_name]:
+            value = input_map[event_name]
+
+            match value:
                 case list():
-                    pass # TODO: work on this...
+                    value = list(value)
 
                 case int():
-                    pass
+                    value = [value, ]
+
+            for v in value:
+                if not self.input_status[v]["pressed"]:
+                    break
+            else:
+                pressed_flag = True
+
+            return pressed_flag
+
+        else:
+            raise InputIDNotInInputMapError(f"{event_name} not found in INPUT_MAP")
+        
+    def input_is_just_pressed(self, event_name: str) -> bool:
+        input_map = hatred.game_details.INPUT_MAP
+
+        if event_name in input_map:
+            pressed_flag = False
+
+            value = input_map[event_name]
+
+            match value:
+                case list():
+                    value = list(value)
+
+                case int():
+                    value = [value, ]
+
+            for v in value:
+                if not self.input_status[v]["just_pressed"]:
+                    break
+            else:
+                pressed_flag = True
+
+            return pressed_flag
+
+        else:
+            raise InputIDNotInInputMapError(f"{event_name} not found in INPUT_MAP")
+        
+    def input_is_just_released(self, event_name: str) -> bool:
+        input_map = hatred.game_details.INPUT_MAP
+
+        if event_name in input_map:
+            pressed_flag = False
+
+            value = input_map[event_name]
+
+            match value:
+                case list():
+                    value = list(value)
+
+                case int():
+                    value = [value, ]
+
+            for v in value:
+                if not self.input_status[v]["just_released"]:
+                    break
+            else:
+                pressed_flag = True
 
             return pressed_flag
 

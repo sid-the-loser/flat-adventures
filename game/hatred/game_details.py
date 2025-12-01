@@ -24,6 +24,10 @@ INPUT_MAP: dict[str, list[int] | int] = {
     "force_quit" : [
         pygame.K_LCTRL,
         pygame.K_q
-    ]
+    ],
+    "up" : pygame.K_w,
+    "down" : pygame.K_s,
+    "left" : pygame.K_a,
+    "right" : pygame.K_d
     
 }
