@@ -3,6 +3,7 @@ import socket
 import json
 import random
 import uuid
+from typing import Any
 
 # TODO: might wanna switch to asyncio
 # TODO: might wanna add a config setup
@@ -73,7 +74,7 @@ def console():
 
     print("Console thread stopped!")
 
-def handler(conn: socket.socket, addr):
+def handler(conn: socket.socket, addr: Any):
     global conn_count
 
     print(f"{addr} connected.")
