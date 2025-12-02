@@ -32,8 +32,8 @@ go_dummies: list[GameObject] = []
 
 def create_dummies():
     global go_dummies
-    gen = 100000
-    spread = 10
+    gen = 10000
+    spread = 1000
     for i in range(gen):
         go_dummies.append(GameObject("Dummy", s_gameplay))
         go_dummies[-1].position.x = randint(-spread, spread)
