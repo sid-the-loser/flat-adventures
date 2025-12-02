@@ -1,11 +1,11 @@
-from copy import deepcopy
+from typing import Any
 
 import hatred.game_object
 import hatred.app
 import hatred.math_plus
 
 class Scene:
-    def __init__(self, name: str, parent_app) -> None:
+    def __init__(self, name: str, parent_app: Any) -> None:
         self.active = False
         self.name = name
         self.app: hatred.app.App = parent_app

@@ -1,4 +1,5 @@
 import pygame
+import os
 
 GAME_NAME: str = "flat adventures"
 GAME_VERSION: str = "ea0.0.1"
@@ -29,6 +30,14 @@ INPUT_MAP: dict[str, list[int] | int] = {
     "down" : pygame.K_s,
     "left" : pygame.K_a,
     "right" : pygame.K_d,
-    "accept" : pygame.K_RETURN
-    
+    "accept" : pygame.K_RETURN,
+    "ui_up" : pygame.K_UP,
+    "ui_down" : pygame.K_DOWN,
+    "main_menu" : pygame.K_SPACE,
+    "back" : pygame.K_ESCAPE
 }
+
+# Games might use assets of their own in whichever directory they like, but, 
+# the engine by default supports assets/ direcotry
+
+ASSETS_PATH: str = os.path.join(os.getcwd(), "assets/")
